@@ -16,7 +16,7 @@ RSpec.describe 'Test Price' do
         spectial_price: { 3 => 150 }
       },
       'B' => {
-        unit_price: 50,
+        unit_price: 30,
         spectial_price: { 2 => 45 }
       },
       'C' => {
@@ -37,6 +37,11 @@ RSpec.describe 'Test Price' do
   describe 'when items contain A' do
     let(:items) { 'A' }
     it { is_expected.to eq 50 }
+  end
+
+  describe 'when items contain AB' do
+    let(:items) { 'AB' }
+    it { is_expected.to eq 80 }
   end
 
 end
