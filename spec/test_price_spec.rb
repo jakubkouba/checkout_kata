@@ -61,7 +61,7 @@ RSpec.describe 'Test Price' do
   end
 
   xdescribe 'when items contain AAAB' do
-    let(:items) { 'AAAA' }
+    let(:items) { 'AAAB' }
     it { is_expected.to eq 160 }
   end
 
