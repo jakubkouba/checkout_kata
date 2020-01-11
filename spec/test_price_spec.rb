@@ -65,4 +65,24 @@ RSpec.describe 'Test Price' do
     it { is_expected.to eq 30 }
   end
 
+  describe 'Sequential items scanning' do
+    subject(:total) { checkout.total }
+    specify do
+      expect(total).to eq 0
+
+      checkout.scan('A')
+      expect(checkout.total).to eq 50
+
+      checkout.scan('A')
+      expect(checkout.total).to eq 100
+
+      checkout.scan('B')
+      expect(checkout.total).to eq 130
+
+      checkout.scan('A')
+      expect(checkout.total).to eq 160
+    end
+
+  end
+
 end
