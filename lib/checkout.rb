@@ -30,7 +30,7 @@ class Checkout
     if unit_price.discount?
       apply_discount(count, unit_price)
     else
-      unit_price.value
+      count * unit_price.value
     end
   end
 
