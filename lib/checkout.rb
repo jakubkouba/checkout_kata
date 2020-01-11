@@ -34,14 +34,14 @@ class Checkout
     end
   end
 
-  def apply_discount(count, unit_price)
-    if count < unit_price.discounted_amount
-      count * unit_price.value
-    else
-      discounted_price = (count / unit_price.discounted_amount) * unit_price.discounted_price
-      price_for_single_units = (count % unit_price.discounted_amount) * unit_price.value
-      discounted_price + price_for_single_units
-    end
+  def apply_discount(item_count, unit_price)
+    discounted_amount_multiplier = (item_count / unit_price.discounted_amount)
+    single_item_count = (item_count % unit_price.discounted_amount)
+    
+    discounted_price = discounted_amount_multiplier * unit_price.discounted_price
+    price_for_single_units = single_item_count * unit_price.value
+
+    discounted_price + price_for_single_units
   end
 
   def items_with_count
