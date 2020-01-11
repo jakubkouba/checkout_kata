@@ -16,17 +16,16 @@ class Checkout
   def total
     return 0 if items.empty?
 
-    total = 0
-    items_count.each do |item, count|
+    items_count.reduce(0) do |total, (item, count)|
       item_price_rules = price_rules[item]
       unit_price = UnitPrice.new(item_price_rules[:unit_price], item_price_rules[:special_price])
-      if unit_price.discount?
-        total += apply_discount(count, unit_price)
-      else
-        total += unit_price.value
-      end
+      total += if unit_price.discount?
+                 apply_discount(count, unit_price)
+               else
+                 unit_price.value
+               end
+      total
     end
-    total
   end
   
   private
