@@ -16,7 +16,7 @@ class Checkout
   def total
     return 0 if items.empty?
 
-    items_count.reduce(0) do |total, (item, count)|
+    items_with_count.reduce(0) do |total, (item, count)|
       item_price_rules = price_rules[item]
       unit_price = UnitPrice.new(item_price_rules[:unit_price], item_price_rules[:special_price])
       total += if unit_price.discount?
@@ -42,7 +42,7 @@ class Checkout
     end
   end
 
-  def items_count
+  def items_with_count
     @items_count = items.inject(Hash.new(0)) do |items_count, item|
       items_count[item] += 1
       items_count
