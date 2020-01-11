@@ -19,16 +19,20 @@ class Checkout
     items_with_count.reduce(0) do |total, (item, count)|
       item_price_rules = price_rules[item]
       unit_price = UnitPrice.new(item_price_rules[:unit_price], item_price_rules[:special_price])
-      total += if unit_price.discount?
-                 apply_discount(count, unit_price)
-               else
-                 unit_price.value
-               end
+      total += price_for(count, unit_price)
       total
     end
   end
   
   private
+
+  def price_for(count, unit_price)
+    if unit_price.discount?
+      apply_discount(count, unit_price)
+    else
+      unit_price.value
+    end
+  end
 
   def apply_discount(count, unit_price)
     if count == unit_price.discounted_amount
